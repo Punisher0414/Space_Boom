@@ -17,6 +17,10 @@ public class Minion : Enemy
     private PlayerHealth playerHealth;
     private float timeBtwAttacks;
 
+    [Header("Particles")]
+    [SerializeField]
+    private ParticleSystem punchParticles;
+
 
     public void Start()
     {
@@ -74,5 +78,15 @@ public class Minion : Enemy
     {
         playerHealth.TakeDamage(damage);
         timeBtwAttacks = startTimeBtwAttacks;
+
+        ParticleSystem psInstance = Instantiate<ParticleSystem>(punchParticles);
+
+            if (punchParticles != null)
+            {
+                punchParticles.Play();
+            }
+
+        Destroy(psInstance.gameObject, 0.3F);
+
     }
 }
