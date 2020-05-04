@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        FindObjectOfType<AudioManager>().Play("Shoot");
     }
 
     public void TakeMineral(int ammount)

@@ -57,7 +57,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else if (currentHealth <= 0)
         {
-            Die();
+            StartCoroutine(Die()); 
         }
     }
 
@@ -80,12 +80,16 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            Die();
+            StartCoroutine(Die()); 
         }
+
+        FindObjectOfType<AudioManager>().Play("Hit");
     }
 
-    public void Die()
+    IEnumerator Die()
     {
+        FindObjectOfType<AudioManager>().Play("Die");
+        yield return new WaitForSeconds(0.2F);
         SceneManager.LoadScene("Level_01");
     }
 

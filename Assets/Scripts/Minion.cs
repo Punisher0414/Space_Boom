@@ -19,13 +19,13 @@ public class Minion : Enemy
 
     [Header("Particles")]
     [SerializeField]
-    private ParticleSystem punchParticles;
+    private GameObject punchParticles;
 
 
     public void Start()
     {
         //rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         playerPosition = FindObjectOfType<PlayerController>().GetComponent<Transform>();
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
         playerHealth = FindObjectOfType<PlayerHealth>();
@@ -76,17 +76,19 @@ public class Minion : Enemy
 
     public override void Attack()
     {
+        anim.SetTrigger("attack");
         playerHealth.TakeDamage(damage);
         timeBtwAttacks = startTimeBtwAttacks;
 
-        ParticleSystem psInstance = Instantiate<ParticleSystem>(punchParticles);
+        //ParticleSystem psInstance = Instantiate<ParticleSystem>(punchParticles);
 
-            if (punchParticles != null)
-            {
-                punchParticles.Play();
-            }
+        if (punchParticles != null)
+        {
+            GameObject obj = Instantiate(punchParticles, playerPosition.position, Quaternion.identity);
 
-        Destroy(psInstance.gameObject, 0.3F);
+            Destroy(obj.gameObject, 0.75F);
+        }   
+
 
     }
 }
