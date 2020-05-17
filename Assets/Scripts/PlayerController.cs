@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private int mineralAmmount = 0;
     public Text mineralText;
 
+    public int MineralAmmount { get => mineralAmmount; }
     
 
     //private float verticalMovement;
